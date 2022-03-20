@@ -239,21 +239,18 @@ class ProtGoCTF(ProtParticles):
         # Run goCTF
         try:
             self._params.update({
-                'micFn': micFnMrc,
-                'goctfOut': self._getCtfOutPath(micFn),
-                'goctfPSD': self._getPsdPath(micFn)
+                'micFn': os.path.basename(micFnMrc),
+                'goctfOut': self._getOutputPath(micFn, ext="_ctf.log"),
+                'goctfPSD': self._getOutputPath(micFn, ext="_ctf.mrc")
             })
             args = self._args % self._params
             self.runJob(Plugin.getProgram(), args,
-                        env=Plugin.getEnviron())
+                        env=Plugin.getEnviron(),
+                        cwd=micPath)
 
             # Let's clean the temporary mrc micrograph
             pwutils.cleanPath(micFnMrc)
 
-            # move output from tmp to extra
-            micFnCtfLocal = os.path.join(micPath, pwutils.removeBaseExt(micFn) + '_goCTF.star')
-            micFnCtfLocalOut = self._getCtfLocalOutPath(micFn)
-            pwutils.moveFile(micFnCtfLocal, micFnCtfLocalOut)
         except:
             print("ERROR: goCTF has failed on %s" % micFnMrc)
             import traceback
@@ -267,8 +264,10 @@ class ProtGoCTF(ProtParticles):
         self._rowCounter = 0
 
         def _newMic(mic):
-            micBase = pwutils.removeBaseExt(mic.getFileName())
-            ctfFn = self._getCtfLocalOutPath(micBase)
+            micFn = mic.getFileName()
+            micPath = self._getTmpPath(pwutils.removeBaseExt(micFn))
+            ctfFn = os.path.join(micPath,
+                                 self._getOutputPath(micFn, ext="_goCTF.star"))
             self._rowCounter = 0
             if os.path.exists(ctfFn):
                 self._rowList = [row.clone() for row in md.iterRows(ctfFn)]
@@ -351,17 +350,8 @@ class ProtGoCTF(ProtParticles):
 eof\n
 """
 
-    def _getPsdPath(self, micFn):
-        micFnBase = pwutils.removeBaseExt(micFn)
-        return self._getExtraPath(micFnBase + '_ctf.mrc')
-
-    def _getCtfOutPath(self, micFn):
-        micFnBase = pwutils.removeBaseExt(micFn)
-        return self._getExtraPath(micFnBase + '_ctf.log')
-
-    def _getCtfLocalOutPath(self, micFn):
-        micFnBase = pwutils.removeBaseExt(micFn)
-        return self._getExtraPath(micFnBase + '_goCTF.star')
+    def _getOutputPath(self, micFn, ext):
+        return pwutils.removeBaseExt(micFn) + ext
 
     def _getMicrographs(self):
         return self.inputMicrographs.get()
