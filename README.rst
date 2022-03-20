@@ -55,7 +55,7 @@ the folder where the goCTF is installed.
 
 To check the installation, simply run the following Scipion test:
 
-``scipion test goctf.tests.test_protocols_goctf.TestGoCTF``
+``scipion tests goctf.tests.test_protocols_goctf.TestGoCTF``
 
 
 Supported versions
@@ -66,7 +66,7 @@ Supported versions
 Protocols
 ---------
 
-    * ctf estimation
+    * ctf refinement
 
 
 References
