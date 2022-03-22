@@ -112,14 +112,9 @@ class ProtGoCTF(ProtParticles):
                        label='Defocus step (A)',
                        help='Step size for the defocus search.')
 
-        group.addParam('slowSearch', params.BooleanParam, default=False,
+        group.addParam('doRefine', params.BooleanParam, default=True,
                        expertLevel=params.LEVEL_ADVANCED,
-                       label="Slower, more exhaustive search?",
-                       help="Select this option if CTF determination "
-                            "fails on images that show clear Thon rings "
-                            "and should therefore yield good CTF parameters, "
-                            "or if you expect noticeably elliptical Thon "
-                            "rings and high noise.")
+                       label="Run per-particle refinement?")
 
         form.addParallelSection(threads=2, mpi=1)
 
@@ -330,7 +325,7 @@ class ProtGoCTF(ProtParticles):
                         'minDefocus': self.minDefocus.get(),
                         'maxDefocus': self.maxDefocus.get(),
                         'step_focus': self.stepDefocus.get(),
-                        'slowSearch': "yes" if self.slowSearch else "no"
+                        'doRefine': "yes" if self.doRefine else "no"
                         }
 
         self._args = """   << eof > %(goctfOut)s
@@ -346,7 +341,7 @@ class ProtGoCTF(ProtParticles):
 %(minDefocus)f
 %(maxDefocus)f
 %(step_focus)f
-%(slowSearch)s
+%(doRefine)s
 eof\n
 """
 
