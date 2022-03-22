@@ -36,12 +36,12 @@ _references = ['Su2019']
 class Plugin(pwem.Plugin):
     _homeVar = GOCTF_HOME
     _pathVars = [GOCTF_HOME]
-    _supportedVersions = [V1_1_0]
+    _supportedVersions = [V1_2_0]
     _url = "https://github.com/scipion-em/scipion-em-goctf"
 
     @classmethod
     def _defineVariables(cls):
-        cls._defineEmVar(GOCTF_HOME, 'goctf-%s' % V1_1_0)
+        cls._defineEmVar(GOCTF_HOME, 'goctf-%s' % V1_2_0)
 
     @classmethod
     def getProgram(cls):
@@ -53,4 +53,4 @@ class Plugin(pwem.Plugin):
         for v in cls._supportedVersions:
             env.addPackage('goctf', version=v,
                            tar='goctf_v%s.tgz' % v,
-                           default=v == V1_1_0)
+                           default=v == V1_2_0)

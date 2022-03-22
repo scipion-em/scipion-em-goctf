@@ -50,7 +50,7 @@ b) Developer's version
         scipion installp -p /path/to/scipion-em-goctf --devel
 
 goCTF binary will be installed automatically with the plugin, but you can also link an existing installation.
-Default installation path assumed is ``software/em/goctf-1.1.0``, if you want to change it, set *GOCTF_HOME* in ``scipion.conf`` file to
+Default installation path assumed is ``software/em/goctf-1.2.0``, if you want to change it, set *GOCTF_HOME* in ``scipion.conf`` file to
 the folder where the goCTF is installed.
 
 To check the installation, simply run the following Scipion test:
@@ -61,7 +61,7 @@ To check the installation, simply run the following Scipion test:
 Supported versions
 ------------------
 
-1.1.0
+1.2.0
 
 Protocols
 ---------

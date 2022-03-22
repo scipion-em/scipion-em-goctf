@@ -27,4 +27,4 @@
 GOCTF_HOME = 'GOCTF_HOME'
 
 # Supported versions
-V1_1_0 = '1.1.0'
+V1_2_0 = '1.2.0'
