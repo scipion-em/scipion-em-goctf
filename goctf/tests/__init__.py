@@ -25,3 +25,12 @@
 # **************************************************************************
 
 from .test_protocols_goctf import TestGoCTF
+
+from pyworkflow.tests import DataSet
+
+
+DataSet(name='goctf', folder='goctf',
+        files={
+            'allMics': 'micrographs/*.mrc',
+            'particles': 'particles.sqlite'
+        })
