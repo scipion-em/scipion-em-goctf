@@ -26,6 +26,7 @@
 
 import os
 from collections import OrderedDict
+from enum import Enum
 
 import pyworkflow.utils as pwutils
 import pyworkflow.protocol.params as params
@@ -33,10 +34,15 @@ from pyworkflow.constants import BETA
 from pyworkflow.protocol.constants import STEPS_PARALLEL
 from pwem import emlib
 import pwem.emlib.metadata as md
+from pwem.objects import SetOfParticles
 from pwem.protocols import EMProtocol, ProtParticles
 
 from .. import Plugin
 from ..convert import CoordinatesWriter, rowToCtfModel, getShifts
+
+
+class outputs(Enum):
+    outputParticles = SetOfParticles
 
 
 class ProtGoCTF(ProtParticles):
@@ -47,6 +53,7 @@ class ProtGoCTF(ProtParticles):
     """
     _label = 'ctf refinement'
     _devStatus = BETA
+    _possibleOutputs = outputs
 
     def __init__(self, **kwargs):
         EMProtocol.__init__(self, **kwargs)
@@ -278,7 +285,7 @@ class ProtGoCTF(ProtParticles):
             rowToCtfModel(row, newPart.getCTF())
             partSet.append(newPart)
 
-        self._defineOutputs(outputParticles=partSet)
+        self._defineOutputs(**{outputs.outputParticles.name: partSet})
         self._defineTransformRelation(self.inputParticles, partSet)
 
     # -------------------------- INFO functions --------------------------------
