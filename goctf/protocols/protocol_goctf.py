@@ -30,7 +30,7 @@ from enum import Enum
 
 import pyworkflow.utils as pwutils
 import pyworkflow.protocol.params as params
-from pyworkflow.constants import BETA
+from pyworkflow.constants import BETA, SCIPION_DEBUG_NOCLEAN
 from pyworkflow.protocol.constants import STEPS_PARALLEL
 from pwem import emlib
 import pwem.emlib.metadata as md
@@ -251,7 +251,8 @@ class ProtGoCTF(ProtParticles):
                         cwd=micPath)
 
             # Let's clean the temporary mrc micrograph
-            pwutils.cleanPath(micFnMrc)
+            if not pwutils.envVarOn(SCIPION_DEBUG_NOCLEAN):
+                pwutils.cleanPath(micFnMrc)
 
         except:
             print("ERROR: goCTF has failed on %s" % micFnMrc)

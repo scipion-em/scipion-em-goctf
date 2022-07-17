@@ -31,6 +31,6 @@ from pyworkflow.tests import DataSet
 
 DataSet(name='goctf', folder='goctf',
         files={
-            'allMics': 'micrographs/*.mrc',
+            'allMics': 'micrographs/16nov14z_15nov07b*.mrc',
             'particles': 'particles.sqlite'
         })

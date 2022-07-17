@@ -45,6 +45,7 @@ CTF_DICT = OrderedDict([
 class CoordinatesWriter:
     """ Simple class to write coordinates and CTF into a star file. """
     HEADER = """
+
 data_
 
 loop_
@@ -52,7 +53,6 @@ _rlnCoordinateX #1
 _rlnCoordinateY #2
 _rlnDefocusU #3
 _rlnDefocusV #4
-_rlnDefocusAngle #5
 """
 
     def __init__(self, filename):
@@ -62,7 +62,7 @@ _rlnDefocusAngle #5
         self._f.write(self.HEADER)
 
     def writeRow(self, x, y, defU, defV, defAng):
-        self._f.write(f"{x:.2f} {y:.2f} {defU:.2f} {defV:.2f} {defAng:.2f}\n")
+        self._f.write(f"{x:.2f} {y:.2f} {defU:.2f} {defV:.2f}\n")
 
     def close(self):
         self._f.close()
