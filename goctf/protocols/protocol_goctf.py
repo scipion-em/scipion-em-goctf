@@ -179,8 +179,8 @@ class ProtGoCTF(ProtParticles):
             if micId != lastMicId:  # Do no repeat check when this is the same mic
                 mic = self.micDict.get(micName, None)
                 if mic is None:
-                    print("Skipping all particles from micrograph, "
-                          "key %s not found" % micName)
+                    self.warning(f"Skipping all particles from micrograph, "
+                                 f"key {micName} not found")
                 else:
                     newMicCallback(mic)  # Notify about a new micrograph found
                 lastMicId = micId
@@ -196,7 +196,7 @@ class ProtGoCTF(ProtParticles):
         scale = inputParts.getSamplingRate() / inputMics.getSamplingRate() / self.ctfDownFactor.get()
         doScale = abs(scale - 1.0 > 0.00001)
         if doScale:
-            print("Scaling coordinates by a factor *%0.2f*" % scale)
+            self.info(f"Scaling coordinates by a factor {scale:0.2f}")
 
         self._lastWriter = None
         coordDir = self._getTmpPath()
@@ -255,7 +255,7 @@ class ProtGoCTF(ProtParticles):
                 pwutils.cleanPath(micFnMrc)
 
         except:
-            print("ERROR: goCTF has failed on %s" % micFnMrc)
+            self.error(f"ERROR: goCTF has failed on {micFnMrc}")
             import traceback
             traceback.print_exc()
 
