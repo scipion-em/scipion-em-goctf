@@ -194,7 +194,7 @@ class ProtGoCTF(ProtParticles):
         inputMics = self._getMicrographs()
 
         scale = inputParts.getSamplingRate() / inputMics.getSamplingRate() / self.ctfDownFactor.get()
-        doScale = abs(scale - 1.0 > 0.00001)
+        doScale = abs(scale - 1.0) > 0.00001
         if doScale:
             self.info(f"Scaling coordinates by a factor {scale:0.2f}")
 
