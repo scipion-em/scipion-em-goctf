@@ -37,7 +37,7 @@ class Plugin(pwem.Plugin):
     _homeVar = GOCTF_HOME
     _pathVars = [GOCTF_HOME]
     _supportedVersions = [V1_2_0]
-    _url = "https://github.com/scipion-em/scipion-em-goctf"
+    _url = "https://sites.google.com/umich.edu/min-su-ph-d/home"
 
     @classmethod
     def _defineVariables(cls):

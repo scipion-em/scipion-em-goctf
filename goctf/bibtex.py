@@ -34,7 +34,7 @@ number = {1},
 pages = {22-29},
 year = {2019},
 issn = {1047-8477},
-doi = {http://doi.org/10.1016/j.jsb.2018.11.012},
+doi = {https://dx.doi.org/10.1016/j.jsb.2018.11.012},
 author = {Min Su},
 keywords = {Contrast transfer function, Focus gradient, Local focus refinement, Cryo-electron microscopy}
 }
